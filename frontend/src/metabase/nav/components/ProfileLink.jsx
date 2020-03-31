@@ -110,8 +110,11 @@ export default class ProfileLink extends Component {
               <h2
                 style={{ fontSize: "1.75em" }}
                 className="text-dark"
-              >{t`Thanks for using Metabase!`}</h2>
+              >{t`Thanks for using Metabase ZiTel Edition!`}</h2>
               <div className="pt2">
+                <h3 className="text-dark mb1">
+                  {t`Maintainer`}: Shahab
+                </h3>
                 <h3 className="text-dark mb1">
                   {t`You're on version`} {tag}
                 </h3>
