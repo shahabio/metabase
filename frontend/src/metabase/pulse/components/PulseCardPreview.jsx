@@ -150,7 +150,7 @@ const RenderedPulseCardPreview = ({ href, children }) => (
   <a
     href={href}
     style={{
-      fontFamily: 'Lato, "Helvetica Neue", Helvetica, Arial, sans-serif',
+      fontFamily: 'IRANSans, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif',
       margin: 16,
       marginBottom: 16,
       display: "block",
@@ -176,7 +176,7 @@ const RenderedPulseCardPreviewHeader = ({ children }) => (
           <span
             style={{
               fontFamily:
-                'Lato, "Helvetica Neue", Helvetica, Arial, sans-serif',
+                'IRANSans, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif',
               fontSize: 16,
               fontWeight: 700,
               color: color("text-dark"),
