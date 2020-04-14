@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 
 import { PLUGIN_LOGO_ICON_COMPONENTS } from "metabase/plugins";
+import ZiTelLogoIcon from "metabase/components/ZiTelLogoIcon";
 
 class DefaultLogoIcon extends Component {
   static defaultProps = {
@@ -37,6 +38,6 @@ class DefaultLogoIcon extends Component {
 }
 
 export default function LogoIcon(props) {
-  const [Component = DefaultLogoIcon] = PLUGIN_LOGO_ICON_COMPONENTS;
+  const [Component = ZiTelLogoIcon] = PLUGIN_LOGO_ICON_COMPONENTS;
   return <Component {...props} />;
 }

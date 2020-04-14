@@ -1,16 +1,18 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 
 import "./Calendar.css";
 
 import cx from "classnames";
+import jMoment from "jalali-moment";
 import moment from "moment";
-import { t } from "ttag";
+import {t} from "ttag";
 import Icon from "metabase/components/Icon";
 
 export default class Calendar extends Component {
   constructor(props) {
     super(props);
+    jMoment.locale('fa', {useGregorianParser: true});
     this.state = {
       current: moment(props.initial || undefined),
     };
@@ -53,13 +55,13 @@ export default class Calendar extends Component {
           nextProps.selected.isBefore(this.state.current, "month");
       }
       if (resetCurrent) {
-        this.setState({ current: nextProps.selected });
+        this.setState({current: nextProps.selected});
       }
     }
   }
 
   onClickDay = date => {
-    const { selected, selectedEnd, isRangePicker } = this.props;
+    const {selected, selectedEnd, isRangePicker} = this.props;
     if (!isRangePicker || !selected || selectedEnd) {
       this.props.onChange(date.format("YYYY-MM-DD"), null);
     } else if (!selectedEnd) {
@@ -78,14 +80,16 @@ export default class Calendar extends Component {
   };
 
   previous = () => {
-    this.setState({ current: moment(this.state.current).add(-1, "M") });
+    this.setState({current: moment(this.state.current).add(-1, "M")});
   };
 
   next = () => {
-    this.setState({ current: moment(this.state.current).add(1, "M") });
+    this.setState({current: moment(this.state.current).add(1, "M")});
   };
 
   renderMonthHeader(current, side) {
+    const jalaliDate = jMoment(current.format());
+
     return (
       <div className="Calendar-header flex align-center border-bottom">
         {side !== "right" && (
@@ -93,15 +97,17 @@ export default class Calendar extends Component {
             className="cursor-pointer text-brand-hover"
             onClick={this.previous}
           >
-            <Icon name="chevronleft" size={10} />
+            <Icon name="chevronleft" size={10}/>
           </div>
         )}
-        <span className="flex-full" />
-        <h4>{current.format("MMMM YYYY")}</h4>
-        <span className="flex-full" />
+        <span className="flex-full"/>
+        <h5>{current.format("MMMM YYYY")}</h5>
+        <span className="flex-full"/>
+        <h5 className={'Calendar-second-header'}>{jalaliDate.format('MMMM YYYY')}</h5>
+        <span className="flex-full"/>
         {side !== "left" && (
           <div className="cursor-pointer text-brand-hover" onClick={this.next}>
-            <Icon name="chevronright" size={10} />
+            <Icon name="chevronright" size={10}/>
           </div>
         )}
       </div>
@@ -109,7 +115,7 @@ export default class Calendar extends Component {
   }
 
   renderDayNames() {
-    const names = [t`Su`, t`Mo`, t`Tu`, t`We`, t`Th`, t`Fr`, t`Sa`];
+    const names = [t`ی`, t`د`, t`س`, t`چ`, t`پ`, t`ج`, t`ش`];
     return (
       <div className="Calendar-day-names Calendar-week py1">
         {names.map(name => (
@@ -167,7 +173,7 @@ export default class Calendar extends Component {
   }
 
   render() {
-    const { current } = this.state;
+    const {current} = this.state;
     return this.renderCalender(current);
   }
 }
@@ -181,9 +187,10 @@ class Week extends Component {
 
   render() {
     const days = [];
-    let { date, month, selected, selectedEnd } = this.props;
+    let {date, month, selected, selectedEnd} = this.props;
 
     for (let i = 0; i < 7; i++) {
+
       const classes = cx("Calendar-day cursor-pointer text-centered", {
         "Calendar-day--today": date.isSame(new Date(), "day"),
         "Calendar-day--this-month": date.month() === month.month(),
@@ -206,7 +213,13 @@ class Week extends Component {
           className={classes}
           onClick={this.props.onClickDay.bind(null, date)}
         >
+          <span>
           {date.date()}
+          </span>
+          <br/>
+          <span className={'Calendar-second-day'}>
+          {jMoment(date.format()).jDate()}
+          </span>
         </span>,
       );
       date = moment(date).add(1, "d");
